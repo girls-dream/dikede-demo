@@ -1,0 +1,30 @@
+{
+  "id": "3557965",
+  "name": "帝可得",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "5387965",
+      "name": "盾牌保险认证_o",
+      "font_class": "dunpaibaoxianrenzheng_o",
+      "unicode": "eba0",
+      "unicode_decimal": 60320
+    },
+    {
+      "icon_id": "11372728",
+      "name": "眼睛",
+      "font_class": "yanjing",
+      "unicode": "e8bf",
+      "unicode_decimal": 59583
+    },
+    {
+      "icon_id": "15657518",
+      "name": "眼睛_闭",
+      "font_class": "yanjing_bi",
+      "unicode": "e638",
+      "unicode_decimal": 58936
+    }
+  ]
+}
