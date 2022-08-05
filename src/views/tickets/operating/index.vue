@@ -44,7 +44,7 @@
         </el-row>
 
         <el-table :data="tableData" style="width: 100%">
-          <el-table-column prop="assignorId" label="序号" width="140">
+          <el-table-column prop="createType" label="序号" width="140">
           </el-table-column>
           <el-table-column prop="taskCode" label="工单编号" width="140">
           </el-table-column>
@@ -62,7 +62,7 @@
           </el-table-column>
           <el-table-column prop="userName" label="运营人员" width="140">
           </el-table-column>
-          <el-table-column prop="updateTime" label="创建日期" width="140">
+          <el-table-column prop="createTime" label="创建日期" width="140">
           </el-table-column>
           <el-table-column prop="查看详情" label="操作" width="140">
           </el-table-column>
@@ -74,6 +74,7 @@
 
 <script>
 import { getWorksearch } from "@/api";
+import moment from "moment";
 export default {
   name: "operating",
   computed: {},
@@ -96,8 +97,11 @@ export default {
       const res = await getWorksearch();
       // console.log(res.data.currentPageRecords);
       this.tableData = res.data.currentPageRecords;
-      console.log(status);
+      // this.tableData.createTime = moment(this.tableData.createTime).format(
+      //   "YYYY.MM.DD HH:mm:ss"
+      // );
       this.tableData.forEach((item) => {
+        item.createTime = moment(this.tableData.createTime).format("YYYY.MM.DD HH:mm:ss");
         if (item.taskStatus == 1) {
           return (item.taskStatus = "代办");
         } else if (item.taskStatus == 2) {
