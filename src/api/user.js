@@ -14,6 +14,11 @@ export function login(data) {
 export function VerificationCode(num) {
   return request({
     url: `/user-service/user/imageCode/${num}`,
-    method: "GET",
+  });
+}
+//获取人员基本信息
+export function getUserInfo(id) {
+  return request({
+    url: `/user-service/user/${id}`,
   });
 }

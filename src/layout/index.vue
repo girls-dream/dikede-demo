@@ -1,6 +1,5 @@
 <template>
   <div :class="classObj" class="app-wrapper">
-    <div v-if="device==='mobile'&&sidebar.opened" class="drawer-bg" @click="handleClickOutside" />
     <sidebar class="sidebar-container" />
     <div class="main-container">
       <div :class="{'fixed-header':fixedHeader}">
@@ -35,8 +34,8 @@ export default {
     },
     classObj() {
       return {
-        hideSidebar: !this.sidebar.opened,
-        openSidebar: this.sidebar.opened,
+        // hideSidebar: !this.sidebar.opened,
+        openSidebar: this.sidebar.opened,//this.sidebar.opened
         withoutAnimation: this.sidebar.withoutAnimation,
         mobile: this.device === 'mobile'
       }
@@ -53,7 +52,12 @@ export default {
 <style lang="scss" scoped>
   @import "~@/styles/mixin.scss";
   @import "~@/styles/variables.scss";
-
+.app-main{
+  background-color: #f8fafd;
+  // height:100%
+  margin-top: 60px;
+  position: fixed;
+}
   .app-wrapper {
     @include clearfix;
     position: relative;
@@ -65,14 +69,15 @@ export default {
     }
   }
   .drawer-bg {
-    background: #000;
-    opacity: 0.3;
+    // background: #000;
+    // opacity: 0.3;
     width: 100%;
     top: 0;
     height: 100%;
     position: absolute;
     z-index: 999;
   }
+  
 
   .fixed-header {
     position: fixed;
@@ -89,5 +94,8 @@ export default {
 
   .mobile .fixed-header {
     width: 100%;
+  }
+  .main-container{
+    margin-left: 0 !important;
   }
 </style>

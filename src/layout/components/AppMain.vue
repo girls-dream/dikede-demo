@@ -18,12 +18,16 @@ export default {
 </script>
 
 <style scoped>
+body{
+  background: #f8fafd;
+}
 .app-main {
   /*50 = navbar  */
   min-height: calc(100vh - 50px);
   width: 100%;
   position: relative;
   overflow: hidden;
+  padding: 66px 0 0 190px;
 }
 .fixed-header+.app-main {
   padding-top: 50px;

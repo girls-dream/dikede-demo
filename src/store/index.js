@@ -11,14 +11,18 @@ const store = new Vuex.Store({
   modules: {
     app,
     settings,
-    user
+    user,
   },
   getters,
   plugins: [
     createVuexPersisted({
       reducer(state) {
         return {
-          TOKEN: state.user
+          user: {
+            token: state.user.token,
+            userInfo: state.user.userInfo,
+            userAllInfo: state.user.userAllInfo,
+          }
         }
       }
     })

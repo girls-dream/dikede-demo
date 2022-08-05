@@ -70,6 +70,7 @@
           type="primary"
           style="width: 100%; margin-bottom: 30px"
           @click.native.prevent="handleLogin"
+          :loading="isLoad"
           >登录</el-button
         >
       </div>
@@ -95,12 +96,12 @@ export default {
         captcha: "",
         mobile: "",
         code: "",
-        clientToken: this.$store.state.user.random,
+        clientToken: "",
         loginType: 0,
         account: "",
       },
       LoginFormRules: {
-        account: [
+        loginName: [
           { required: true, message: "请输入账号", trigger: "blur" },
           {
             pattern: /^(?:(?:\+|00)86)?1[3-9]\d{9}$/,
@@ -117,9 +118,18 @@ export default {
           //   trigger: 'blur',
           // },
         ],
+        code: [
+          { required: true, message: "请输入验证码", trigger: "blur" },
+          {
+            // pattern: /^(?:(?:\+|00)86)?1[3-9]\d{9}$/,
+            message: "验证码错误",
+            trigger: "blur",
+          },
+        ],
       },
       isOpen: false, //是否睁开
       imgURL: "",
+      isLoad: false,
     };
   },
   mounted() {
@@ -134,17 +144,27 @@ export default {
     handleLogin() {
       //登录接口
       // console.log(this.random);
-      this.$refs.loginForm.validate((vaild) => {
-        console.log(this.LoginForm);
-        this.$store.dispatch("user/getToken", {
-          ...this.LoginForm,
-          clientToken: this.$store.state.user.random,
+      this.isLoad = true;
+      try {
+        this.$refs.loginForm.validate(async (vaild) => {
+          // console.log(this.clientToken);
+          await this.$store.dispatch("user/getToken", {
+            ...this.LoginForm,
+            clientToken: this.$store.state.user.random,
+            // loginName:this.LoginForm.loginName,
+            // password:this.LoginForm.password,
+            // code: this.LoginForm.code,
+            // clientToken:this.$store.state.user.random,
+          });
+          if (this.$store.state.user.token) {
+            this.$router.push("/dashboard");
+            this.$message.success("登陆成功");
+          }
         });
-      });
-
-      console.log(this.$route);
-      if (this.$store.state.user.token) {
-        this.$router.push('/dashboard')
+        this.codeClick();
+      } catch (error) {
+      } finally {
+        this.isLoad = false;
       }
     },
     async codeClick() {
@@ -153,12 +173,12 @@ export default {
       try {
         // await this.$refs.loginForm.validate()
         await this.$store.dispatch("user/getVerificationCode");
-        // console.log(this.$store.state.user.imgUrl);
-        // console.log(this.clientToken);
+        // console.log(this.$store.state.user.random);
+        this.clientToken = this.$store.state.user.random;
         this.imgURL = this.$store.state.user.imgUrl;
         // console.log(this.clientToken);
       } catch (error) {
-        console.log(error);
+        // console.log(error);
       }
     },
   },

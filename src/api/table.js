@@ -1,9 +1,8 @@
 import request from '@/utils/request'
-
-export function getList(params) {
+// 获取工单搜索
+export function getWorksearch(params) {
   return request({
-    url: '/vue-admin-template/table/list',
-    method: 'get',
+    url: '/task-service/task/search',
     params
   })
 }
